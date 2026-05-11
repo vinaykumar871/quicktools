@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game - QuickTools</title>
+  <link rel="stylesheet" href="global.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <link rel="stylesheet" href="style.css">  <style>
+    .memory-container {
+      text-align: center;
+      padding: 60px 8%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .card {
+      width: 80px;
+      height: 80px;
+      background: #2563EB;
+      color: white;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 8px;
+      user-select: none;
+    }
+
+    .card.flipped {
+      background: #16a34a;
+    }
+
+    .stats {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background: #2563EB;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style></head><body><div class="tool-content">
+
+<h1>Memory Game – Improve Your Memory & Focus</h1>
+
+<h2>Test and Boost Your Memory Skills</h2>
+
+<p>
+Play our Memory Game to improve your concentration, focus, and memory power. This interactive game challenges you to match cards and remember positions, helping train your brain in a fun way.
+</p>
+
+<h2>What is a Memory Game?</h2>
+<p>
+A Memory Game is a brain-training activity where players match pairs of cards by remembering their positions. It enhances cognitive skills, improves memory retention, and increases focus.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Start the game</li>
+  <li>Flip two cards at a time</li>
+  <li>Match identical cards</li>
+  <li>Remember card positions</li>
+  <li>Complete all matches to win</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Interactive card matching game</li>
+  <li>Improves memory and concentration</li>
+  <li>Simple and fun interface</li>
+  <li>Suitable for all age groups</li>
+  <li>Works on mobile and desktop</li>
+</ul>
+
+<h2>Benefits of Playing Memory Game</h2>
+<ul>
+  <li>Enhances memory power</li>
+  <li>Improves focus and attention</li>
+  <li>Boosts brain activity</li>
+  <li>Reduces stress</li>
+  <li>Fun and engaging learning experience</li>
+</ul>
+
+<h2>Who Should Play This Game?</h2>
+<ul>
+  <li>Students improving concentration</li>
+  <li>Kids developing memory skills</li>
+  <li>Adults training brain function</li>
+  <li>Anyone who enjoys brain games</li>
+</ul>
+
+<h2>Tips to Improve Your Memory</h2>
+<ul>
+  <li>Practice regularly</li>
+  <li>Focus on patterns</li>
+  <li>Avoid distractions</li>
+  <li>Train your brain with similar games</li>
+  <li>Stay calm and concentrated</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this memory game free?</strong><br>
+Yes, it is completely free to play.</p>
+
+<p><strong>Does it help improve memory?</strong><br>
+Yes, regular practice can improve memory and focus.</p>
+
+<p><strong>Can I play on mobile?</strong><br>
+Yes, it works on all devices.</p>
+
+<p><strong>Is it suitable for kids?</strong><br>
+Yes, it is suitable for all age groups.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get brain training tips, memory improvement techniques, and guidance.
+</p>
+
+</div>
+  </div>
+</nav><section class="memory-container">  <h1>🧠 Memory Game</h1>  <div class="stats">
+    Moves: <span id="moves">0</span> |
+    Time: <span id="time">0</span>s
+  </div>  <div class="grid" id="grid"></div>
+  <button onclick="startGame()">Restart</button>
+
+</section><script>
+
+let symbols = ["🍎","🍌","🍇","🍉","🍒","🥝","🍍","🥑"];
+let cards = [];
+let flipped = [];
+let moves = 0;
+let matched = 0;
+let timer = 0;
+let interval;
+
+// SHUFFLE
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function startGame() {
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  cards = shuffle([...symbols, ...symbols]);
+  flipped = [];
+  moves = 0;
+  matched = 0;
+  timer = 0;
+
+  document.getElementById("moves").innerText = 0;
+  document.getElementById("time").innerText = 0;
+
+  clearInterval(interval);
+  interval = setInterval(() => {
+    timer++;
+    document.getElementById("time").innerText = timer;
+  }, 1000);
+
+  cards.forEach((symbol, index) => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.dataset.symbol = symbol;
+    div.dataset.index = index;
+
+    div.onclick = () => flipCard(div);
+
+    grid.appendChild(div);
+  });
+}
+
+function flipCard(card) {
+
+  if (flipped.length === 2 || card.classList.contains("flipped")) return;
+
+  card.innerText = card.dataset.symbol;
+  card.classList.add("flipped");
+
+  flipped.push(card);
+
+  if (flipped.length === 2) {
+    moves++;
+    document.getElementById("moves").innerText = moves;
+
+    if (flipped[0].dataset.symbol === flipped[1].dataset.symbol) {
+      matched += 2;
+      flipped = [];
+
+      if (matched === cards.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          alert(`🎉 You won in ${moves} moves & ${timer}s`);
+        }, 300);
+      }
+
+    } else {
+      setTimeout(() => {
+        flipped.forEach(c => {
+          c.innerText = "";
+          c.classList.remove("flipped");
+        });
+        flipped = [];
+      }, 700);
+    }
+  }
+}
+
+// START ON LOAD
+startGame();
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

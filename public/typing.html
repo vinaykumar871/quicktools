@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Speed Test - QuickTools</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+.typing-box {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#text span.correct { color: green; }
+#text span.wrong { color: red; }
+#text span.active { text-decoration: underline; }
+
+textarea {
+  width: 100%;
+  height: 120px;
+  margin-top: 15px;
+}
+
+.stats {
+  margin-top: 15px;
+}
+
+select, button {
+  margin-top: 10px;
+  padding: 8px;
+}
+</style>
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<body>
+<div class="tool-content">
+
+<h1>Typing Speed Test – Improve Your Typing Speed & Accuracy</h1>
+
+<h2>Test Your Typing Speed Instantly</h2>
+
+<p>
+Use our Typing Speed Test tool to measure and improve your typing speed and accuracy. Whether you are preparing for exams, jobs, or improving productivity, this tool helps you practice typing effectively and track your performance.
+</p>
+
+<h2>What is a Typing Speed Test?</h2>
+<p>
+A Typing Speed Test is a tool that measures how fast and accurately you can type. It calculates your typing speed in words per minute (WPM) and evaluates your accuracy based on errors made during typing.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Start the typing test</li>
+  <li>Type the given text within the time limit</li>
+  <li>Your speed (WPM) and accuracy are calculated</li>
+  <li>View your results instantly</li>
+  <li>Practice regularly to improve</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Real-time typing speed calculation (WPM)</li>
+  <li>Accuracy tracking</li>
+  <li>Timer-based typing tests</li>
+  <li>Instant performance results</li>
+  <li>Works on desktop and mobile devices</li>
+</ul>
+
+<h2>Benefits of Using Typing Practice Tool</h2>
+<ul>
+  <li>Improves typing speed and efficiency</li>
+  <li>Enhances accuracy</li>
+  <li>Boosts productivity</li>
+  <li>Helps prepare for typing tests and exams</li>
+  <li>Builds confidence in computer skills</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students preparing for exams</li>
+  <li>Job seekers applying for typing-based roles</li>
+  <li>Professionals improving productivity</li>
+  <li>Anyone wanting to improve typing skills</li>
+</ul>
+
+<h2>Tips to Improve Typing Speed</h2>
+<ul>
+  <li>Practice daily</li>
+  <li>Focus on accuracy before speed</li>
+  <li>Use proper finger placement</li>
+  <li>Avoid looking at the keyboard</li>
+  <li>Stay consistent</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>What is a good typing speed?</strong><br>
+A speed of 40–60 WPM is considered average, while 70+ WPM is excellent.</p>
+
+<p><strong>Is this typing test accurate?</strong><br>
+Yes, it provides accurate speed and accuracy measurements.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can beginners use this tool?</strong><br>
+Yes, it is suitable for beginners as well as advanced users.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get tips, practice strategies, and improve your typing skills faster.
+</p>
+
+</div>
+<div class="typing-box">
+  <h2>⌨ Typing Speed Test</h2>
+
+  <!-- Difficulty -->
+  <select id="difficulty">
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+  </select>
+
+  <!-- Paragraph -->
+  <p id="text"></p>
+
+  <textarea id="input" placeholder="Start typing..." disabled></textarea>
+
+  <div class="stats">
+    ⏱ <span id="time">30</span>s |
+    ⚡ <span id="wpm">0</span> WPM |
+    🎯 <span id="accuracy">0</span>%
+  </div>
+
+  <button onclick="startTest()">Start</button>
+
+  <!-- Leaderboard -->
+  <h3>🏆 Leaderboard</h3>
+  <ul id="leaderboard"></ul>
+</div>
+
+<script>
+const paragraphs = {
+  easy: [
+    "Typing is fun and easy when you practice daily.",
+    "Practice makes perfect keep going."
+  ],
+  medium: [
+    "Typing speed improves with consistent effort and proper finger placement.",
+    "Focus on accuracy first then speed will automatically increase."
+  ],
+  hard: [
+    "Success in typing requires dedication patience and continuous improvement over time.",
+    "Consistency and focus are the keys to mastering any skill in life."
+  ]
+};
+
+let currentText = "";
+let timer = 30;
+let interval;
+let started = false;
+
+// 🔊 Sound
+
+function startTest() {
+  const level = document.getElementById("difficulty").value;
+  const list = paragraphs[level];
+
+  currentText = list[Math.floor(Math.random() * list.length)];
+
+  const textContainer = document.getElementById("text");
+
+  textContainer.innerHTML = currentText
+    .split("")
+    .map(c => `<span>${c}</span>`)
+    .join("");
+
+  document.getElementById("input").value = "";
+  document.getElementById("input").disabled = false;
+  document.getElementById("input").focus();
+
+  timer = 30;
+  document.getElementById("time").innerText = timer;
+
+  started = true;
+
+  interval = setInterval(() => {
+    timer--;
+    document.getElementById("time").innerText = timer;
+
+    if (timer === 0) {
+      clearInterval(interval);
+      finishTest();
+    }
+  }, 1000);
+}
+
+document.getElementById("input").addEventListener("input", () => {
+  if (!started) return;
+
+ 
+
+  const typed = document.getElementById("input").value;
+  const spans = document.querySelectorAll("#text span");
+
+  let correct = 0;
+
+  spans.forEach((span, index) => {
+    const char = typed[index];
+
+    span.classList.remove("correct", "wrong", "active");
+
+    if (char == null) {
+      span.classList.add("active");
+    } else if (char === span.innerText) {
+      span.classList.add("correct");
+      correct++;
+    } else {
+      span.classList.add("wrong");
+    }
+  });
+
+  const accuracy = Math.round((correct / typed.length) * 100) || 0;
+  const words = typed.trim().split(" ").length;
+  const wpm = Math.round((words / (30 - timer)) * 60) || 0;
+
+  document.getElementById("accuracy").innerText = accuracy;
+  document.getElementById("wpm").innerText = wpm;
+});
+
+function finishTest() {
+  started = false;
+  document.getElementById("input").disabled = true;
+
+  const wpm = document.getElementById("wpm").innerText;
+
+  saveScore(wpm);
+  loadLeaderboard();
+}
+
+function saveScore(score) {
+  let scores = JSON.parse(localStorage.getItem("scores")) || [];
+  scores.push(score);
+  scores.sort((a, b) => b - a);
+  scores = scores.slice(0, 5);
+
+  localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+function loadLeaderboard() {
+  const list = document.getElementById("leaderboard");
+  list.innerHTML = "";
+
+  let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+  scores.forEach((s, i) => {
+    list.innerHTML += `<li>#${i + 1} - ${s} WPM</li>`;
+  });
+}
+
+// Load leaderboard on start
+loadLeaderboard();
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

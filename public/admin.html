@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - QuickTools</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>📊 Admin Dashboard</h1>
+
+<p>
+  Welcome, <span id="adminName"></span>
+  <button onclick="logout()">Logout</button>
+</p>
+
+<!-- 📊 STATS -->
+<div class="stats">
+  <div class="box">
+    <h3 id="userCount">0</h3>
+    <p>Total Users</p>
+  </div>
+
+  <div class="box">
+    <h3 id="messageCount">0</h3>
+    <p>Total Messages</p>
+  </div>
+</div>
+
+<!-- 📩 MESSAGES -->
+<h2>📩 Contact Messages</h2>
+<div id="messageList"></div>
+
+<!-- 👥 USERS -->
+<h2>👥 Users</h2>
+<div id="userList"></div>
+
+<script>
+const backend = "https://quicktools-backend-b775.onrender.com";
+const token = localStorage.getItem("token");
+const adminEmail = "vinaykumarpathipati8@gmail.com";
+
+// 🔒 AUTH CHECK
+if (!token || localStorage.getItem("user") !== adminEmail) {
+  alert("Access Denied ❌");
+  window.location.href = "login.html";
+}
+
+// 👤 Show admin name
+document.getElementById("adminName").innerText = localStorage.getItem("user");
+
+// 🚪 Logout
+function logout() {
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+
+// 📊 Load stats
+async function loadStats() {
+  const res = await fetch(backend + "/stats", {
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+
+  document.getElementById("userCount").innerText = data.users;
+  document.getElementById("messageCount").innerText = data.messages;
+}
+
+// 📩 Load messages
+async function loadMessages() {
+  const res = await fetch(backend + "/contacts", {
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+  const container = document.getElementById("messageList");
+  container.innerHTML = "";
+
+  data.forEach(msg => {
+    const div = document.createElement("div");
+    div.className = "message-card";
+
+    div.innerHTML = `
+      <h4>${msg.name}</h4>
+      <p>${msg.email}</p>
+      <p>${msg.message}</p>
+      <button onclick="deleteMessage('${msg._id}')">Delete</button>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// 🗑 Delete message
+async function deleteMessage(id) {
+  await fetch(backend + "/contact/" + id, {
+    method: "DELETE",
+    headers: { Authorization: token }
+  });
+
+  loadMessages();
+  loadStats();
+}
+
+// 👥 Load users
+async function loadUsers() {
+  const res = await fetch(backend + "/users", {
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+  const container = document.getElementById("userList");
+  container.innerHTML = "";
+
+  data.forEach(u => {
+    const div = document.createElement("div");
+    div.className = "message-card";
+
+    const isAdmin = u.username === adminEmail;
+
+    div.innerHTML = `
+      <p>${u.username}</p>
+      ${!isAdmin 
+        ? `<button onclick="deleteUser('${u._id}')">Delete</button>` 
+        : `<span style="color:green">Admin</span>`}
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// 🗑 Delete user
+async function deleteUser(id) {
+  if (!confirm("Delete this user?")) return;
+
+  await fetch(backend + "/user/" + id, {
+    method: "DELETE",
+    headers: { Authorization: token }
+  });
+
+  loadUsers();
+  loadStats();
+}
+
+// 🚀 INIT
+loadStats();
+loadMessages();
+loadUsers();
+
+
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

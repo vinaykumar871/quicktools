@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator - QuickTools</title>
+  <link rel="stylesheet" href="global.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <div class="tool-content">
+
+<h1>Percentage Calculator – Calculate Percentages Easily</h1>
+
+<h2>Calculate Percentages Instantly</h2>
+
+<p>
+Use our Percentage Calculator to quickly calculate percentages, increases, decreases, and differences. Whether you are solving math problems, calculating discounts, or analyzing data, this tool provides fast and accurate results.
+</p>
+
+<h2>What is a Percentage Calculator?</h2>
+<p>
+A Percentage Calculator is a tool that helps you compute percentage values easily. It can calculate percentage increase, decrease, percentage of a number, and differences between values.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter the values you want to calculate</li>
+  <li>Select the type of percentage calculation</li>
+  <li>Click on "Calculate"</li>
+  <li>View your result instantly</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Calculate percentage of a number</li>
+  <li>Find percentage increase or decrease</li>
+  <li>Compare two values easily</li>
+  <li>Fast and accurate results</li>
+  <li>Simple and user-friendly interface</li>
+</ul>
+
+<h2>Benefits of Using Percentage Calculator</h2>
+<ul>
+  <li>Saves time compared to manual calculations</li>
+  <li>Provides accurate results</li>
+  <li>Useful for students and professionals</li>
+  <li>Helps in financial and academic calculations</li>
+  <li>Easy to use for everyone</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students solving math problems</li>
+  <li>Professionals handling data and finance</li>
+  <li>Shoppers calculating discounts</li>
+  <li>Anyone needing quick percentage calculations</li>
+</ul>
+
+<h2>Common Uses</h2>
+<ul>
+  <li>Calculating discounts and offers</li>
+  <li>Finding exam scores and percentages</li>
+  <li>Analyzing profit and loss</li>
+  <li>Comparing values in reports</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this percentage calculator accurate?</strong><br>
+Yes, it provides fast and accurate results.</p>
+
+<p><strong>Can I calculate percentage increase and decrease?</strong><br>
+Yes, it supports multiple types of percentage calculations.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Does it work on mobile?</strong><br>
+Yes, it works on all devices.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to understand percentage formulas and get help with calculations instantly.
+</p>
+
+</div>
+
+  <!-- PERCENTAGE CALCULATOR -->
+  <section class="tool-page">
+    <h1>Percentage Calculator</h1>
+
+    <div class="tool-card">
+
+      <label>Obtained Marks:</label>
+      <input type="number" id="obtained" placeholder="Enter obtained marks">
+
+      <label>Total Marks:</label>
+      <input type="number" id="total" placeholder="Enter total marks">
+
+      <button onclick="calculatePercentage()">Calculate Percentage</button>
+
+      <p id="percentageResult">Enter values and click Calculate.</p>
+
+    </div>
+  </section>
+
+  <script>
+    function calculatePercentage() {
+      const obtained = parseFloat(document.getElementById("obtained").value);
+      const total = parseFloat(document.getElementById("total").value);
+
+      if (isNaN(obtained) || isNaN(total) || total === 0) {
+        document.getElementById("percentageResult").innerText = "Please enter valid values!";
+        return;
+      }
+
+      const percentage = ((obtained / total) * 100).toFixed(2);
+
+      document.getElementById("percentageResult").innerText = 
+        "Your Percentage is: " + percentage + "%";
+    }
+  </script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Interview Tips - QuickTools</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body { font-family:Poppins; background:#eef2ff; }
+.container { max-width:900px; margin:auto; background:white; padding:20px; border-radius:10px; }
+button { padding:10px 15px; background:#4f46e5; color:white; border:none; border-radius:6px; cursor:pointer; }
+</style>
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<div class="tool-content">
+<body>
+<div class="tool-content">
+
+<h1>Interview Tips – Crack Job Interviews with Confidence</h1>
+
+<h2>Prepare for Interviews Effectively</h2>
+
+<p>
+Get the best interview tips to succeed in job interviews and placement rounds. Whether you are a fresher or an experienced professional, these tips will help you improve your confidence, communication, and performance during interviews.
+</p>
+
+<h2>What are Interview Tips?</h2>
+<p>
+Interview tips are strategies and guidelines that help candidates prepare for job interviews. They include preparation techniques, communication skills, and best practices to impress recruiters.
+</p>
+
+<h2>How to Prepare for an Interview</h2>
+<ul>
+  <li>Research the company and job role</li>
+  <li>Understand the job description</li>
+  <li>Prepare answers for common questions</li>
+  <li>Practice mock interviews</li>
+  <li>Update your resume and documents</li>
+</ul>
+
+<h2>Key Interview Tips</h2>
+<ul>
+  <li>Dress professionally</li>
+  <li>Be confident and maintain eye contact</li>
+  <li>Communicate clearly and confidently</li>
+  <li>Listen carefully before answering</li>
+  <li>Be honest and authentic</li>
+</ul>
+
+<h2>Common Interview Questions</h2>
+<ul>
+  <li>Tell me about yourself</li>
+  <li>What are your strengths and weaknesses?</li>
+  <li>Why should we hire you?</li>
+  <li>Where do you see yourself in 5 years?</li>
+  <li>Explain your projects or experience</li>
+</ul>
+
+<h2>Tips for Freshers</h2>
+<ul>
+  <li>Focus on your projects and skills</li>
+  <li>Be confident even with limited experience</li>
+  <li>Show willingness to learn</li>
+  <li>Highlight your strengths clearly</li>
+</ul>
+
+<h2>Tips for Technical Interviews</h2>
+<ul>
+  <li>Practice coding and problem-solving</li>
+  <li>Understand core concepts clearly</li>
+  <li>Explain your approach step by step</li>
+  <li>Write clean and efficient code</li>
+</ul>
+
+<h2>Benefits of Following Interview Tips</h2>
+<ul>
+  <li>Increases chances of selection</li>
+  <li>Improves confidence and communication</li>
+  <li>Reduces nervousness</li>
+  <li>Helps make a strong impression</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>How can I prepare for interviews quickly?</strong><br>
+Focus on basics, practice common questions, and take mock interviews.</p>
+
+<p><strong>Are these tips useful for freshers?</strong><br>
+Yes, these tips are especially helpful for freshers and job seekers.</p>
+
+<p><strong>How to reduce interview fear?</strong><br>
+Practice regularly and stay confident.</p>
+
+<p><strong>Is this guide free?</strong><br>
+Yes, it is completely free.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to practice interview questions, get answers, and improve your preparation instantly.
+</p>
+
+</div>
+<h1 style="text-align:center;">🎯 Interview Practice</h1>
+
+<div class="container">
+
+<p>Prepare for interviews with AI-generated questions.</p>
+
+<!-- ✅ ONLY ONE BUTTON -->
+<button onclick="loadAIQuestions('Interview')">
+   Generate Interview Tips
+</button>
+
+<!-- ✅ ONLY ONE CONTAINER -->
+<div id="questions" style="margin-top:20px;"></div>
+
+</div>
+
+<script id="8k7y1o">
+async function loadAIQuestions(topic){
+
+  document.getElementById("questions").innerHTML = "⏳ Generating interview tips...";
+
+  try {
+    const res = await fetch("http://localhost:5000/ai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text: `
+Give top 10 interview questions with BEST ANSWERS and TIPS.
+
+Format:
+Q: question
+A: answer
+Tip: short tip
+`,
+        type: "professional"
+      })
+    });
+
+    const data = await res.json();
+
+    if (!data.result) {
+      document.getElementById("questions").innerHTML = "❌ Failed to load";
+      return;
+    }
+
+    // format nicely
+    let formatted = data.result
+  .replace(/\*\*/g, "") // remove ** symbols
+  .replace(/\d+\.\s*/g, "") // remove numbering (1. 2. etc)
+  .replace(/Q:/g, "<br><br><b>Q:</b>")
+  .replace(/A:/g, "<br><b>A:</b>")
+  .replace(/Tip:/g, "<br><span style='color:green;'>💡 Tip:</span>");
+
+    document.getElementById("questions").innerHTML = `
+  <div style="line-height:1.8; font-size:15px;">
+    ${formatted}
+  </div>
+`;
+
+  } catch {
+    document.getElementById("questions").innerHTML = "⚠ Server error";
+  }
+}
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

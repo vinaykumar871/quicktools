@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blog</title>
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<body>
+
+<div class="container">
+
+ <h1>How to Crack Placement Interviews in 30 Days</h1>
+
+<p>
+Cracking placement interviews requires a clear strategy, consistent practice, and the right resources. In this guide, we’ll show you how to prepare effectively in just 30 days.
+</p>
+
+<h2>Week 1: Build Strong Basics</h2>
+<ul>
+  <li>Understand core concepts (DSA, OOP, Aptitude)</li>
+  <li>Start solving easy problems</li>
+  <li>Prepare your resume</li>
+</ul>
+
+<h2>Week 2: Practice & Improve</h2>
+<ul>
+  <li>Solve medium-level coding questions</li>
+  <li>Practice aptitude daily</li>
+  <li>Improve communication skills</li>
+</ul>
+
+<h2>Week 3: Mock Tests & Interviews</h2>
+<ul>
+  <li>Take mock tests</li>
+  <li>Practice HR questions</li>
+  <li>Work on weak areas</li>
+</ul>
+
+<h2>Week 4: Final Preparation</h2>
+<ul>
+  <li>Revise all topics</li>
+  <li>Focus on confidence</li>
+  <li>Prepare for real interviews</li>
+</ul>
+
+<h2>Final Tips</h2>
+<ul>
+  <li>Be consistent every day</li>
+  <li>Practice more than you read</li>
+  <li>Stay confident and positive</li>
+</ul>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get instant help with interview preparation and doubts.
+</p>
+  <div id="blogContent"></div>
+
+</div>
+
+<script src="blog-data.js"></script>
+
+<script>
+const id = localStorage.getItem("blogId");
+
+const blog = blogs.find(b => b.id == id);
+
+document.getElementById("blogContent").innerHTML = `
+  <div class="section">
+    <h1>${blog.title}</h1>
+    ${blog.content}
+    <br>
+    <button onclick="window.location.href='blog.html'">⬅ Back</button>
+  </div>
+`;
+</script>
+
+</body>
+</html>

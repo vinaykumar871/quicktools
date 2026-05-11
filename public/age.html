@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator - QuickTools</title>
+  
+  <link rel="stylesheet" href="global.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+<div class="tool-content">
+
+<h1>Age Calculator – Calculate Your Exact Age Online</h1>
+
+<h2>Calculate Your Age Instantly</h2>
+
+<p>
+Use our free Age Calculator to find your exact age in years, months, and days instantly. Whether you are calculating your current age, age difference, or planning for important milestones, this tool provides accurate and fast results.
+</p>
+
+<h2>What is an Age Calculator?</h2>
+<p>
+An Age Calculator is a simple online tool that calculates your exact age based on your date of birth. It shows your age in years, months, days, and even total days lived without manual calculation.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter your date of birth</li>
+  <li>Select the current date (or any custom date)</li>
+  <li>Click on "Calculate Age"</li>
+  <li>View your exact age instantly</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Accurate age calculation in seconds</li>
+  <li>Shows age in years, months, and days</li>
+  <li>Calculate age difference between two dates</li>
+  <li>Simple and user-friendly interface</li>
+  <li>Works on all devices (mobile & desktop)</li>
+</ul>
+
+<h2>Benefits of Using Age Calculator</h2>
+<ul>
+  <li>Saves time compared to manual calculations</li>
+  <li>Provides precise and error-free results</li>
+  <li>Useful for official forms and applications</li>
+  <li>Helps track birthdays and milestones</li>
+  <li>Easy to use for everyone</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students filling application forms</li>
+  <li>Job seekers applying for jobs</li>
+  <li>Parents calculating children's age</li>
+  <li>Anyone needing quick age calculation</li>
+</ul>
+
+<h2>Common Uses of Age Calculator</h2>
+<ul>
+  <li>Checking eligibility for exams or jobs</li>
+  <li>Calculating retirement age</li>
+  <li>Tracking birthdays and anniversaries</li>
+  <li>Finding age difference between two people</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this age calculator accurate?</strong><br>
+Yes, it provides 100% accurate results based on your input dates.</p>
+
+<p><strong>Can I calculate age for a future date?</strong><br>
+Yes, you can calculate age for any past or future date.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Do I need to download anything?</strong><br>
+No, this tool works instantly in your browser.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get instant help with calculations and related queries.
+</p>
+
+</div>
+  <!-- AGE CALCULATOR -->
+  <section class="tool-page">
+    <h1>Age Calculator</h1>
+
+    <div class="tool-card">
+      <label for="birthdate">Select Your Birthdate:</label>
+      <input type="date" id="birthdate">
+
+      <button onclick="calculateAge()">Calculate Age</button>
+
+      <p id="result">Enter your birthdate and click Calculate.</p>
+    </div>
+  </section>
+
+  <script>
+    function calculateAge() {
+      const birthdate = document.getElementById("birthdate").value;
+
+      if (!birthdate) {
+        document.getElementById("result").innerText = "Please select a date!";
+        return;
+      }
+
+      const birth = new Date(birthdate);
+      const today = new Date();
+
+      let age = today.getFullYear() - birth.getFullYear();
+      const monthDiff = today.getMonth() - birth.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+
+      document.getElementById("result").innerText = "Your Age is: " + age + " years";
+    }
+  </script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+
+</html>

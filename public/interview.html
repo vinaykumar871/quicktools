@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Interview Practice</title>
+<link rel="stylesheet" href="global.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body { font-family:Poppins; background:#eef2ff; }
+.container { max-width:700px; margin:auto; background:white; padding:20px; border-radius:10px; }
+.option { border:1px solid #ccc; padding:10px; margin:5px; cursor:pointer; }
+.selected { background:#4f46e5; color:white; }
+</style>
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<div class="tool-content">
+<body>
+
+<div class="tool-content">
+
+<h1>Interview Preparation – Get Ready for Job Interviews</h1>
+
+<h2>Prepare for Interviews with Confidence</h2>
+
+<p>
+Use our Interview Preparation guide to get ready for job interviews and placement rounds. This tool helps you understand interview processes, practice questions, and improve your communication skills to succeed in interviews.
+</p>
+
+<h2>What is Interview Preparation?</h2>
+<p>
+Interview preparation is the process of getting ready for job interviews by learning about the company, practicing questions, and improving your technical and communication skills. Proper preparation increases your chances of getting selected.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Understand the interview process</li>
+  <li>Prepare answers for common questions</li>
+  <li>Practice technical and aptitude problems</li>
+  <li>Take mock interviews</li>
+  <li>Improve communication and confidence</li>
+</ul>
+
+<h2>Types of Interviews</h2>
+<ul>
+  <li>HR Interviews</li>
+  <li>Technical Interviews</li>
+  <li>Group Discussions</li>
+  <li>Online Assessments</li>
+  <li>Case Study Interviews</li>
+</ul>
+
+<h2>Key Interview Preparation Tips</h2>
+<ul>
+  <li>Research the company and role</li>
+  <li>Prepare your resume thoroughly</li>
+  <li>Practice coding and problem-solving</li>
+  <li>Work on communication skills</li>
+  <li>Be confident and positive</li>
+</ul>
+
+<h2>Common Interview Questions</h2>
+<ul>
+  <li>Tell me about yourself</li>
+  <li>Why do you want this job?</li>
+  <li>What are your strengths and weaknesses?</li>
+  <li>Explain your projects</li>
+  <li>Where do you see yourself in the future?</li>
+</ul>
+
+<h2>Benefits of Interview Preparation</h2>
+<ul>
+  <li>Increases chances of selection</li>
+  <li>Builds confidence</li>
+  <li>Reduces stress and nervousness</li>
+  <li>Improves communication skills</li>
+  <li>Helps perform better in interviews</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students preparing for placements</li>
+  <li>Freshers applying for jobs</li>
+  <li>Professionals switching careers</li>
+  <li>Anyone preparing for interviews</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>How long should I prepare for interviews?</strong><br>
+It depends on your skills, but regular practice is important.</p>
+
+<p><strong>Is this useful for freshers?</strong><br>
+Yes, it is very helpful for freshers.</p>
+
+<p><strong>Can I practice technical questions here?</strong><br>
+Yes, you can use related tools like coding and aptitude practice.</p>
+
+<p><strong>Is this guide free?</strong><br>
+Yes, it is completely free.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to practice interview questions, get answers, and improve your preparation instantly.
+</p>
+
+</div>
+
+<div class="container">
+
+
+  <h3>📚 Preparation Resources</h3>
+
+  <div class="features">
+
+  <a href="java.html" class="feature-card">
+    💻 Java Development
+    <p>Practice Java interview questions & coding</p>
+  </a>
+
+  <a href="python.html" class="feature-card">
+    🐍 Python Practice
+    <p>Prepare Python coding & interview questions</p>
+  </a>
+
+  <a href="aptitude.html" class="feature-card">
+    📘 Aptitude Practice
+    <p>Quantitative, Logical & Data Interpretation</p>
+  </a>
+
+  <a href="tips.html" class="feature-card">
+    🎯 Interview Tips
+    <p>HR questions, resume tips & interview strategies</p>
+  </a>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+let questions=[], index=0, answers=[], time=120, timer;
+
+/* PREMIUM */
+function buyPremium(){
+  localStorage.setItem("premium","true");
+  alert("Premium activated");
+}
+
+/* START QUIZ */
+async function startQuiz(){
+
+  document.getElementById("quiz").innerHTML = "⏳ Loading...";
+
+  const today = new Date().toDateString();
+  const last = localStorage.getItem("lastTest");
+
+  if (last === today && !localStorage.getItem("premium")) {
+  alert("Free users: 1 test per day. Upgrade for unlimited.");
+  return;
+}
+
+  localStorage.setItem("lastTest", today);
+
+  const level = document.getElementById("level").value;
+
+  if (level === "hard" && !localStorage.getItem("premium")) {
+    alert("Premium required");
+    return;
+  }
+
+  const topic = document.getElementById("topic").value;
+
+  try {
+    const res = await fetch("https://quicktools-backend-1.onrender.com/generate-quiz", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic, level })
+    });
+
+    const data = await res.json();
+    console.log("API RESPONSE:", data);
+    if (!data.questions || data.questions.length === 0) {
+    document.getElementById("quiz").innerHTML = "⚡ Preparing your test..."; 
+         return;
+    }
+
+    questions = data.questions.sort(() => 0.5 - Math.random());
+    index = 0;
+    answers = [];
+
+    startTimer();
+    loadQ();
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("quiz").innerHTML = "❌ Server error";
+  }
+}
+
+/* TIMER */
+function startTimer(){
+  clearInterval(timer);
+  time=120;
+
+  timer=setInterval(()=>{
+    time--;
+    document.getElementById("timer").innerText="⏱ "+time;
+
+    if(time<=0) submitQuiz();
+  },1000);
+}
+
+/* LOAD QUESTION */
+function loadQ(){
+
+  if(!questions[index]){
+    document.getElementById("quiz").innerHTML="❌ No questions loaded";
+    return;
+  }
+
+  const q = questions[index];
+
+  let html = `<h3>Q${index+1}. ${q.q}</h3>`;
+
+  q.options.forEach(opt => {
+  html += `
+    <label class="option">
+      <input type="radio" name="answer" value="${opt}">
+      ${opt}
+    </label>
+  `;
+});
+
+  html += `<button onclick="nextQuestion()">Next →</button>
+<button onclick="showExplanation()">Explain</button>
+<p class="score">Score: ${score}/${questions.length}</p>`;
+
+  document.getElementById("quiz").innerHTML = html;
+}
+
+/* SELECT */
+function selectOpt(o){
+  answers[index] = o.trim();
+  loadQ();
+}
+
+/* NEXT */
+function nextQ(){
+  if(index < questions.length-1){
+    index++;
+    loadQ();
+  } else {
+    submitQuiz();
+  }
+}
+
+/* SUBMIT */
+function submitQuiz(){
+  clearInterval(timer);
+
+  let score = 0;
+
+  questions.forEach((q,i)=>{
+    if(q.answer === answers[i]) score++;
+  });
+
+  document.getElementById("quiz").innerHTML="";
+  document.getElementById("result").innerHTML = `
+    Score: ${score}/${questions.length}
+    <br><button onclick="showExplain()">Explain</button>
+  `;
+
+  saveScore(score);
+  showChart(score);
+  loadLeaderboard();
+}
+
+/* CHART */
+function showChart(score){
+  new Chart(document.getElementById("chart"),{
+    type:"pie",
+    data:{
+      labels:["Correct","Wrong"],
+      datasets:[{
+        data:[score, questions.length - score]
+      }]
+    }
+  });
+}
+
+/* LEADERBOARD */
+<div class="leaderboard">
+  <h3>🏆 Leaderboard</h3>
+  <p>vinaykumarpathipati8@gmail.com - 10</p>
+  <p>user2@gmail.com - 8</p>
+  <p>user3@gmail.com - 6</p>
+</div>
+
+function loadLeaderboard(){
+  let board = JSON.parse(localStorage.getItem("board") || "[]");
+  board.sort((a,b)=>b.score-a.score);
+
+  let html = "<h3>🏆 Leaderboard</h3>";
+  board.slice(0,5).forEach(b=>{
+    html += `<p>${b.user}: ${b.score}</p>`;
+  });
+
+  document.getElementById("result").innerHTML += html;
+}
+
+/* EXPLANATION */
+function showExplanation() {
+  const q = questions[currentIndex];
+  const explainBox = document.createElement("div");
+  explainBox.className = "explain";
+  explainBox.innerText = q.explanation || "No explanation available";
+  
+  document.getElementById("quiz").appendChild(explainBox);
+}
+
+</script>
+
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+
+</body>
+</html>

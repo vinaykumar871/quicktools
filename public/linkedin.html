@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Bio Generator</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef2ff;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+/* INPUT */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+/* BUTTON */
+button {
+  padding: 10px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* OUTPUT */
+.output {
+  margin-top: 20px;
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+</style>
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<body>
+<div class="tool-content">
+
+<h1>LinkedIn Profile Generator – Create Professional LinkedIn Profiles</h1>
+
+<h2>Build Your LinkedIn Profile Easily</h2>
+
+<p>
+Use our LinkedIn Profile Generator to create a professional and optimized LinkedIn profile instantly. Whether you are a student, fresher, or professional, this tool helps you build a strong online presence to attract recruiters.
+</p>
+
+<h2>What is a LinkedIn Profile Generator?</h2>
+<p>
+A LinkedIn Profile Generator is a tool that helps you create structured and professional LinkedIn content such as headlines, summaries, and experience sections. It ensures your profile stands out and gets noticed by recruiters.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter your personal details and skills</li>
+  <li>Add education, experience, and achievements</li>
+  <li>Click on "Generate Profile"</li>
+  <li>Get optimized LinkedIn content instantly</li>
+  <li>Copy and update your LinkedIn profile</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Professional LinkedIn headline generation</li>
+  <li>Optimized summary and profile content</li>
+  <li>Easy-to-use interface</li>
+  <li>Instant content generation</li>
+  <li>Suitable for all career levels</li>
+</ul>
+
+<h2>Benefits of Using LinkedIn Profile Generator</h2>
+<ul>
+  <li>Improves your online presence</li>
+  <li>Increases chances of recruiter visibility</li>
+  <li>Creates professional and attractive profiles</li>
+  <li>Saves time in profile writing</li>
+  <li>Helps beginners build strong profiles</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students preparing for placements</li>
+  <li>Freshers looking for jobs</li>
+  <li>Professionals improving their profiles</li>
+  <li>Anyone wanting better LinkedIn visibility</li>
+</ul>
+
+<h2>Tips to Improve Your LinkedIn Profile</h2>
+<ul>
+  <li>Use a clear and professional profile photo</li>
+  <li>Write a strong headline</li>
+  <li>Highlight your skills and achievements</li>
+  <li>Keep your profile updated</li>
+  <li>Connect with professionals and recruiters</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this LinkedIn tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can I edit the generated content?</strong><br>
+Yes, you can customize the content as needed.</p>
+
+<p><strong>Is it useful for freshers?</strong><br>
+Yes, it is very helpful for freshers and students.</p>
+
+<p><strong>Will it improve my job chances?</strong><br>
+Yes, a well-optimized profile increases recruiter visibility.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to improve your LinkedIn profile, get suggestions, and enhance your career opportunities.
+</p>
+
+</div>
+<div class="container">
+
+<h2>💼 LinkedIn Bio Generator (Pro)</h2>
+
+<input id="name" placeholder="Your Name">
+<input id="role" placeholder="Your Role (e.g. Software Developer)">
+<input id="experience" placeholder="Years of Experience (e.g. 2 years)">
+<textarea id="skills" placeholder="Core Skills (comma separated)"></textarea>
+<textarea id="achievements" placeholder="Achievements (one per line, with numbers if possible)"></textarea>
+<input id="goal" placeholder="Your Goal (job, networking, freelancing)">
+<input id="keywords" placeholder="Keywords (5-10 comma separated)">
+<select id="tone">
+  <option value="professional">Professional</option>
+  <option value="creative">Creative</option>
+</select>
+
+<button onclick="generateBio()">Generate Bio</button>
+<button onclick="copyBio()">Copy</button>
+
+<div id="output" class="output"></div>
+
+</div>
+
+<script>
+
+// 🔥 AUTO-FILL FROM RESUME
+const data = JSON.parse(localStorage.getItem("resumeData"));
+
+if (data) {
+  name.value = data.name || "";
+  skills.value = data.skills || "";
+}
+
+// =====================
+// GENERATE BIO
+// =====================
+function generateBio() {
+
+  const name = document.getElementById("name").value;
+  const role = document.getElementById("role").value;
+  const exp = document.getElementById("experience").value;
+  const skills = document.getElementById("skills").value;
+  const achievements = document.getElementById("achievements").value.split("\n");
+  const goal = document.getElementById("goal").value;
+  const keywords = document.getElementById("keywords").value;
+  const tone = document.getElementById("tone").value;
+
+  let bio = "";
+
+  // 🔥 HOOK
+  let hook = `I am a ${role} with ${exp}, passionate about delivering impactful solutions using ${skills}.`;
+
+  // 🔥 BODY
+  let body = `I specialize in ${keywords} and enjoy solving real-world problems through technology. My focus is on creating scalable, efficient, and meaningful solutions that add value.`;
+
+  // 🔥 ACHIEVEMENTS
+  let achList = achievements
+    .map(a => a.trim())
+    .filter(a => a)
+    .map(a => `• ${a}`)
+    .join("\n");
+
+  // 🔥 CTA
+  let cta = `I am currently focused on ${goal}. Let’s connect and collaborate on exciting opportunities!`;
+
+  // 🎨 TONE CHANGE
+  if (tone === "creative") {
+    hook = `🚀 ${hook}`;
+    cta = `✨ Let’s build something amazing together! Open to ${goal}.`;
+  }
+
+  bio = `
+${hook}
+
+${body}
+
+Key Achievements:
+${achList}
+
+${cta}
+`;
+
+  // 🔥 LIMIT TO 2600 CHAR
+  if (bio.length > 2600) {
+    bio = bio.substring(0, 2600);
+  }
+
+  document.getElementById("output").innerText = bio;
+}
+
+// =====================
+// COPY
+// =====================
+function copyBio() {
+  const text = document.getElementById("output").innerText;
+
+  if (!text.trim()) {
+    alert("Generate bio first!");
+    return;
+  }
+
+  navigator.clipboard.writeText(text);
+  alert("Copied!");
+}
+
+</script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

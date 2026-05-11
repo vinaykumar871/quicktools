@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habit Tracker</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef2ff;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h2 { text-align: center; }
+
+.input-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  cursor: pointer;
+}
+
+.habit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.habit.done span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.streak {
+  font-size: 12px;
+  color: orange;
+}
+
+.actions button {
+  margin-left: 5px;
+}
+
+.done-btn { background: green; }
+.delete-btn { background: crimson; }
+
+.progress-box { margin: 15px 0; }
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #4f46e5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="tool-content">
+
+<h1>Habit Tracker – Build Good Habits & Stay Consistent</h1>
+
+<h2>Track Your Daily Habits Easily</h2>
+
+<p>
+Use our Habit Tracker to build positive habits and stay consistent with your daily routines. Whether you want to improve productivity, fitness, or learning, this tool helps you track your habits and achieve long-term success.
+</p>
+
+<h2>What is a Habit Tracker?</h2>
+<p>
+A Habit Tracker is a tool that helps you monitor your daily activities and routines. It allows you to track habits over time and maintain consistency, which is key to achieving your goals.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Add your daily habits</li>
+  <li>Mark habits as completed each day</li>
+  <li>Track your progress over time</li>
+  <li>Stay consistent and improve gradually</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Simple habit tracking system</li>
+  <li>Daily progress monitoring</li>
+  <li>Easy-to-use interface</li>
+  <li>Supports multiple habits</li>
+  <li>Works on all devices</li>
+</ul>
+
+<h2>Benefits of Using Habit Tracker</h2>
+<ul>
+  <li>Builds discipline and consistency</li>
+  <li>Improves productivity</li>
+  <li>Helps achieve long-term goals</li>
+  <li>Encourages positive lifestyle changes</li>
+  <li>Keeps you motivated</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students improving study habits</li>
+  <li>Professionals managing daily routines</li>
+  <li>Fitness enthusiasts tracking workouts</li>
+  <li>Anyone aiming for self-improvement</li>
+</ul>
+
+<h2>Tips to Build Strong Habits</h2>
+<ul>
+  <li>Start with small and realistic goals</li>
+  <li>Stay consistent every day</li>
+  <li>Track your progress regularly</li>
+  <li>Avoid skipping days</li>
+  <li>Reward yourself for consistency</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this habit tracker free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can I track multiple habits?</strong><br>
+Yes, you can manage multiple habits at once.</p>
+
+<p><strong>Is it useful for students?</strong><br>
+Yes, it helps students stay consistent in studies.</p>
+
+<p><strong>Can I update my habits?</strong><br>
+Yes, you can modify or update habits anytime.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get productivity tips, motivation, and guidance for building better habits.
+</p>
+
+</div>
+<h2>🔥 Habit Tracker</h2>
+
+<div class="input-box">
+  <input type="text" id="habitInput" placeholder="New habit...">
+  <button onclick="addHabit()">Add</button>
+</div>
+
+<div class="progress-box">
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <p id="progressText">0% completed</p>
+</div>
+
+<div id="habitList"></div>
+
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+<script src="utils.js"></script>
+
+<script>
+
+// ==========================
+// DATA
+// ==========================
+let habits = [];
+
+// ==========================
+// AUTH CHECK
+// ==========================
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    loadHabits();
+  }
+});
+
+// ==========================
+// LOAD HABITS (SAFE)
+// ==========================
+function loadHabits() {
+
+  // 🔹 1. Local fallback
+  const local = localStorage.getItem("habits");
+  if (local) {
+    const parsed = JSON.parse(local);
+    habits = parsed.habits || [];
+    renderHabits();
+  }
+
+  // 🔹 2. Firebase real-time
+  listenData("habits", (data) => {
+    if (data && data.habits) {
+      habits = data.habits;
+
+      resetDailyHabits(); // 🔥 once per sync
+      renderHabits();
+    }
+  });
+}
+
+// ==========================
+// DAILY RESET
+// ==========================
+function resetDailyHabits() {
+  const today = new Date().toDateString();
+
+  let updated = false;
+
+  habits.forEach(h => {
+    if (h.lastDate !== today) {
+      h.done = false;
+      h.lastDate = today;
+      updated = true;
+    }
+  });
+
+  if (updated) {
+    saveData("habits", { habits });
+  }
+}
+
+// ==========================
+// RENDER
+// ==========================
+function renderHabits() {
+  const list = document.getElementById("habitList");
+  list.innerHTML = "";
+
+  let doneCount = 0;
+
+  habits.forEach((h, index) => {
+
+    if (h.done) doneCount++;
+
+    const div = document.createElement("div");
+    div.className = "habit " + (h.done ? "done" : "");
+
+    div.innerHTML = `
+      <div>
+        <span>${h.name}</span><br>
+        <span class="streak">🔥 Streak: ${h.streak}</span>
+      </div>
+      <div class="actions">
+        <button class="done-btn" onclick="toggleHabit(${index})">✔</button>
+        <button class="delete-btn" onclick="deleteHabit(${index})">❌</button>
+      </div>
+    `;
+
+    list.appendChild(div);
+  });
+
+  updateProgress(doneCount);
+}
+
+// ==========================
+// ADD
+// ==========================
+function addHabit() {
+  const input = document.getElementById("habitInput");
+  const name = input.value.trim();
+
+  if (!name) return;
+
+  habits.push({
+    name,
+    done: false,
+    streak: 0,
+    lastDate: new Date().toDateString()
+  });
+
+  input.value = "";
+
+  saveData("habits", { habits });
+}
+
+// ==========================
+// TOGGLE
+// ==========================
+function toggleHabit(index) {
+  const habit = habits[index];
+
+  if (!habit.done) {
+    habit.done = true;
+    habit.streak++;
+  } else {
+    habit.done = false;
+    habit.streak = Math.max(0, habit.streak - 1);
+  }
+
+  saveData("habits", { habits });
+  updateWeeklyData();
+}
+
+// ==========================
+// DELETE
+// ==========================
+function deleteHabit(index) {
+  habits.splice(index, 1);
+  saveData("habits", { habits });
+  updateWeeklyData();
+}
+
+// ==========================
+// PROGRESS
+// ==========================
+function updateProgress(done) {
+  const total = habits.length;
+
+  let percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+  document.getElementById("progressFill").style.width = percent + "%";
+  document.getElementById("progressText").innerText =
+    `${percent}% completed (${done}/${total})`;
+}
+
+// ==========================
+// AUTO SAVE
+// ==========================
+enableGlobalAutoSave();
+
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

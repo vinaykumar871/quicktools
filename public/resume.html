@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef2ff;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+/* GRID */
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.template-card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.template-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.choose-btn {
+  margin-top: 10px;
+  background: orange;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* BUILDER */
+.builder {
+  display: none;
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form {
+  flex: 1;
+  min-width: 300px;
+}
+
+.preview {
+  flex: 1;
+  min-width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 40px auto;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+
+  body {
+  padding-bottom: 160px;
+}
+
+.template-grid {
+  margin-bottom: 120px;
+}
+}
+</style>
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<body>
+<div class="tool-content">
+
+<h1>Resume Builder – Create Professional Resume Instantly</h1>
+
+<h2>Build Your Resume Easily</h2>
+
+<p>
+Use our Resume Builder to create professional, job-ready resumes in minutes. Whether you are a student, fresher, or experienced professional, this tool helps you design a clean and effective resume to stand out in job applications.
+</p>
+
+<h2>What is a Resume Builder?</h2>
+<p>
+A Resume Builder is a tool that helps you create structured resumes by entering your details such as education, skills, and experience. It formats your information into a professional layout ready for job applications.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter your personal details and education</li>
+  <li>Add skills, projects, and experience</li>
+  <li>Select a resume template</li>
+  <li>Click on "Generate Resume"</li>
+  <li>Download or copy your resume</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Professional resume templates</li>
+  <li>Easy-to-use interface</li>
+  <li>Instant resume generation</li>
+  <li>Download and copy options</li>
+  <li>Suitable for all job roles</li>
+</ul>
+
+<h2>Benefits of Using Resume Builder</h2>
+<ul>
+  <li>Saves time in creating resumes</li>
+  <li>Ensures professional formatting</li>
+  <li>Improves chances of getting shortlisted</li>
+  <li>Helps beginners create strong resumes</li>
+  <li>Boosts confidence in job applications</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students preparing for placements</li>
+  <li>Freshers applying for jobs</li>
+  <li>Professionals updating resumes</li>
+  <li>Anyone needing a quick resume</li>
+</ul>
+
+<h2>Tips to Create a Strong Resume</h2>
+<ul>
+  <li>Keep your resume clear and concise</li>
+  <li>Highlight relevant skills and experience</li>
+  <li>Use simple and professional formatting</li>
+  <li>Customize your resume for each job</li>
+  <li>Avoid unnecessary details</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this resume builder free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can I download my resume?</strong><br>
+Yes, you can download or copy your resume easily.</p>
+
+<p><strong>Is it suitable for freshers?</strong><br>
+Yes, it is designed for both freshers and experienced professionals.</p>
+
+<p><strong>Can I edit my resume later?</strong><br>
+Yes, you can update your details anytime.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to improve your resume, get suggestions, and prepare for job applications.
+</p>
+
+</div>
+<h1>Choose Your Template</h1>
+
+<!-- TEMPLATE GRID -->
+<div class="template-grid" id="templateScreen">
+
+  <div class="template-card">
+    <h3>Modern</h3>
+    <button class="choose-btn" onclick="selectTemplate('modern')">Choose</button>
+  </div>
+
+  <div class="template-card">
+    <h3>Classic</h3>
+    <button class="choose-btn" onclick="selectTemplate('classic')">Choose</button>
+  </div>
+
+</div>
+
+<!-- BUILDER -->
+<div class="builder" id="builder">
+
+  <div class="form">
+
+    <input id="name" placeholder="Full Name">
+    <input id="phone" placeholder="Phone">
+    <input id="email" placeholder="Email">
+
+    <textarea id="objective" placeholder="Objective"></textarea>
+
+    <textarea id="degree" placeholder="Degree"></textarea>
+    <textarea id="inter" placeholder="Intermediate"></textarea>
+    <textarea id="ssc" placeholder="SSC"></textarea>
+
+    <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+    <textarea id="languages" placeholder="Languages (comma separated)"></textarea>
+
+    <textarea id="projects" placeholder="Projects (each line new)"></textarea>
+    <textarea id="certifications" placeholder="Certifications (each line new)"></textarea>
+
+    <button onclick="generateResume()">Generate</button>
+    <button onclick="downloadPDF()">Download</button>
+
+  </div>
+
+  <div class="preview" id="preview"></div>
+
+</div>
+
+<script>
+
+let selectedTemplate = "";
+
+// SELECT TEMPLATE
+function selectTemplate(type) {
+  selectedTemplate = type;
+  document.getElementById("templateScreen").style.display = "none";
+  document.getElementById("builder").style.display = "flex";
+}
+
+// GENERATE RESUME
+function generateResume() {
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+  const objective = document.getElementById("objective").value;
+
+  const degree = document.getElementById("degree").value;
+  const inter = document.getElementById("inter").value;
+  const ssc = document.getElementById("ssc").value;
+
+  const skills = document.getElementById("skills").value.split(",");
+  const languages = document.getElementById("languages").value.split(",");
+  const projects = document.getElementById("projects").value.split("\n");
+  const certifications = document.getElementById("certifications").value.split("\n");
+
+  let html = "";
+
+  if (selectedTemplate === "modern") {
+    html = `
+      <h2 style="color:#4f46e5">${name}</h2>
+      <p>${phone} | ${email}</p>
+
+      <h3>Objective</h3>
+      <p>${objective}</p>
+
+      <h3>Education</h3>
+      <ul>
+        <li>${degree}</li>
+        <li>${inter}</li>
+        <li>${ssc}</li>
+      </ul>
+
+      <h3>Skills</h3>
+      <ul>${skills.map(s => `<li>${s.trim()}</li>`).join("")}</ul>
+
+      <h3>Languages</h3>
+      <ul>${languages.map(l => `<li>${l.trim()}</li>`).join("")}</ul>
+
+      <h3>Projects</h3>
+      <ul>${projects.map(p => `<li>${p.trim()}</li>`).join("")}</ul>
+
+      <h3>Certifications</h3>
+      <ul>${certifications.map(c => `<li>${c.trim()}</li>`).join("")}</ul>
+    `;
+  }
+
+  if (selectedTemplate === "classic") {
+    html = `
+      <h1>${name}</h1>
+      <p>${phone} | ${email}</p>
+      <hr>
+
+      <p><strong>Objective:</strong> ${objective}</p>
+
+      <p><strong>Education:</strong><br>
+      ${degree}<br>${inter}<br>${ssc}</p>
+
+      <p><strong>Skills:</strong> ${skills.join(", ")}</p>
+      <p><strong>Languages:</strong> ${languages.join(", ")}</p>
+
+      <p><strong>Projects:</strong><br>${projects.join("<br>")}</p>
+      <p><strong>Certifications:</strong><br>${certifications.join("<br>")}</p>
+    `;
+  }
+
+  document.getElementById("preview").innerHTML = html;
+}
+
+// DOWNLOAD PDF
+function downloadPDF() {
+  const element = document.getElementById("preview");
+
+  if (!element.innerText.trim()) {
+    alert("Generate resume first!");
+    return;
+  }
+
+  html2pdf().from(element).save("Resume.pdf");
+}
+
+</script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

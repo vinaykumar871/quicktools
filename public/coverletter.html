@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cover Letter Generator</title>
+<link rel="stylesheet" href="global.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef2ff;
+  padding: 20px;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+/* TEMPLATE GRID */
+.templates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.template-card {
+  border: 2px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.template-card:hover {
+  border-color: #4f46e5;
+}
+
+.active-template {
+  border: 2px solid #4f46e5;
+}
+
+/* INPUT */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+/* BUTTON */
+button {
+  padding: 10px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* LETTER */
+.letter {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 20px auto;
+  background: white;
+  box-sizing: border-box;
+  line-height: 1.7;
+  font-size: 14px;
+
+  text-align: justify;   /* 🔥 IMPORTANT */
+}
+</style>
+</head>
+
+<body>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<div class="container">
+<div class="tool-content">
+  
+
+<h1>Cover Letter Generator – Create Professional Cover Letters Instantly</h1>
+
+<h2>Create Your Cover Letter Easily</h2>
+
+<p>
+Use our Cover Letter Generator to create professional and job-ready cover letters in seconds. Whether you are applying for internships, placements, or full-time jobs, this tool helps you write effective cover letters tailored to your role.
+</p>
+
+<h2>What is a Cover Letter?</h2>
+<p>
+A cover letter is a document sent along with your resume that highlights your skills, experience, and interest in a specific job role. It helps recruiters understand why you are the right candidate for the position.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter your name, skills, and job details</li>
+  <li>Select the job role or company</li>
+  <li>Click on "Generate Cover Letter"</li>
+  <li>Get a professional cover letter instantly</li>
+  <li>Copy or download your cover letter</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>AI-powered cover letter generation</li>
+  <li>Professional and clean formatting</li>
+  <li>Customizable for different job roles</li>
+  <li>Copy and download options</li>
+  <li>Fast and easy to use</li>
+</ul>
+
+<h2>Benefits of Using Cover Letter Generator</h2>
+<ul>
+  <li>Saves time in writing cover letters</li>
+  <li>Improves chances of getting shortlisted</li>
+  <li>Provides structured and professional content</li>
+  <li>Helps beginners write effective letters</li>
+  <li>Boosts confidence in job applications</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students applying for internships</li>
+  <li>Freshers applying for jobs</li>
+  <li>Professionals switching careers</li>
+  <li>Anyone needing a quick cover letter</li>
+</ul>
+
+<h2>Tips for Writing a Good Cover Letter</h2>
+<ul>
+  <li>Customize your letter for each job</li>
+  <li>Highlight relevant skills and experience</li>
+  <li>Keep it short and professional</li>
+  <li>Avoid copying generic templates</li>
+  <li>Proofread before sending</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this cover letter generator free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can I edit the generated content?</strong><br>
+Yes, you can modify the content before using it.</p>
+
+<p><strong>Is it suitable for all jobs?</strong><br>
+Yes, it can be customized for any job role.</p>
+
+<p><strong>Can I download the cover letter?</strong><br>
+Yes, you can copy or download it easily.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to improve your cover letter, get suggestions, and prepare for interviews.
+</p>
+
+</div>
+<h2>📄 Cover Letter Generator</h2>
+
+<!-- TEMPLATE SELECT -->
+<div class="templates">
+  <div class="template-card" onclick="selectTemplate('modern')">Modern</div>
+  <div class="template-card" onclick="selectTemplate('referral')">Referral</div>
+  <div class="template-card" onclick="selectTemplate('fresher')">Fresher</div>
+  <div class="template-card" onclick="selectTemplate('tech')">Tech</div>
+  <div class="template-card" onclick="selectTemplate('creative')">Creative</div>
+</div>
+
+<!-- FORM -->
+<input id="name" placeholder="Your Name">
+<input id="email" placeholder="Email">
+<input id="phone" placeholder="Phone">
+<input id="company" placeholder="Company Name">
+<input id="role" placeholder="Job Role">
+<input id="referral" placeholder="Referral Name (optional)">
+<textarea id="skills" placeholder="Skills"></textarea>
+
+<button onclick="generateLetter()">Generate</button>
+<button onclick="downloadPDF()">Download PDF</button>
+
+<div id="output" class="letter"></div>
+
+</div>
+
+<script>
+
+let selectedTemplate = "modern";
+
+// 🔥 AUTO-FILL
+const data = JSON.parse(localStorage.getItem("resumeData"));
+if (data) {
+  name.value = data.name || "";
+  email.value = data.email || "";
+  phone.value = data.phone || "";
+  skills.value = data.skills || "";
+}
+
+// SELECT TEMPLATE
+function selectTemplate(type) {
+  selectedTemplate = type;
+
+  document.querySelectorAll(".template-card")
+    .forEach(card => card.classList.remove("active-template"));
+
+  event.target.classList.add("active-template");
+}
+
+// =====================
+// GENERATE LETTER
+// =====================
+function generateLetter() {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const company = document.getElementById("company").value;
+  const role = document.getElementById("role").value;
+  const skills = document.getElementById("skills").value;
+
+  const today = new Date().toLocaleDateString();
+
+  const letter = `
+<div style="display:flex; justify-content:space-between;">
+  <div>
+    <b style="font-size:18px;">${name}</b><br>
+    ${email}<br>
+    ${phone}
+  </div>
+
+  <div style="text-align:right;">
+    ${today}
+  </div>
+</div>
+
+<hr>
+
+<br>
+
+<b>Hiring Manager</b><br>
+${company}<br><br>
+
+Dear Hiring Manager,<br><br>
+
+<b>Subject:</b> Application for ${role} Position<br><br>
+
+I am writing to express my strong interest in the ${role} position at ${company}. With a solid foundation in ${skills}, I have developed strong technical and problem-solving abilities that allow me to deliver effective and efficient solutions.
+
+During my learning and project experience, I have worked on real-world applications where I applied my knowledge practically. This has helped me improve my analytical thinking, teamwork, and adaptability in dynamic environments.
+
+I am particularly interested in this opportunity because ${company} is known for innovation and growth. I am eager to contribute my skills while continuously learning and improving myself in a professional environment.
+
+My key strengths include:
+<ul>
+<li>Strong understanding of ${skills}</li>
+<li>Ability to learn quickly and adapt</li>
+<li>Problem-solving mindset</li>
+<li>Good communication and teamwork</li>
+</ul>
+
+I am confident that my dedication and enthusiasm will allow me to make a meaningful contribution to your organization.
+
+I would welcome the opportunity to discuss how my skills and passion align with your requirements.
+
+Thank you for considering my application.<br><br>
+
+Sincerely,<br><br>
+
+<b>${name}</b>
+`;
+
+  document.getElementById("output").innerHTML = letter;
+}
+
+// =====================
+// PDF
+// =====================
+function downloadPDF() {
+
+  const element = document.getElementById("output");
+
+  if (!element.innerText.trim()) {
+    alert("Generate letter first!");
+    return;
+  }
+
+  const opt = {
+    margin: 0,
+    filename: 'CoverLetter.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2 },
+    jsPDF: {
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
+    }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Writing Assistant</title>
+<link rel="stylesheet" href="global.css">
+
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* TEXT AREA */
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+  margin-bottom: 15px;
+}
+
+/* BUTTON GROUP */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+/* OUTPUT */
+.output-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.result {
+  margin-top: 5px;
+  padding: 10px;
+  background: #eef2ff;
+  border-radius: 8px;
+}
+
+/* LOADER */
+.loader {
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+.loader span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #4f46e5;
+  border-radius: 50%;
+  margin: 3px;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.loader span:nth-child(2) { animation-delay: 0.2s; }
+.loader span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  to { transform: translateY(-8px); }
+}
+
+/* COPY BUTTON */
+.copy-btn {
+  margin-top: 10px;
+  background: green;
+}
+</style>
+
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<div class="tool-content">
+<body>
+
+<div class="container">
+  <div class="tool-content">
+
+<h1>Grammar Checker – Improve Your Writing Instantly</h1>
+
+<h2>Check Grammar & Fix Errors Easily</h2>
+
+<p>
+Use our Grammar Checker tool to correct grammar, spelling, and punctuation mistakes instantly. Whether you are writing emails, assignments, or professional documents, this tool helps you improve clarity and accuracy in your writing.
+</p>
+
+<h2>What is a Grammar Checker?</h2>
+<p>
+A Grammar Checker is a tool that analyzes your text and identifies grammatical errors, spelling mistakes, and incorrect sentence structures. It helps you write clear, correct, and professional content.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter or paste your text</li>
+  <li>Click on "Check Grammar"</li>
+  <li>View corrected text and suggestions</li>
+  <li>Apply changes instantly</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Grammar and spelling correction</li>
+  <li>Punctuation improvement</li>
+  <li>Sentence clarity suggestions</li>
+  <li>Fast and accurate results</li>
+  <li>Simple and easy-to-use interface</li>
+</ul>
+
+<h2>Benefits of Using Grammar Checker</h2>
+<ul>
+  <li>Improves writing quality</li>
+  <li>Reduces grammar mistakes</li>
+  <li>Enhances professional communication</li>
+  <li>Helps students and professionals</li>
+  <li>Saves time while editing content</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students writing assignments</li>
+  <li>Job seekers preparing emails and resumes</li>
+  <li>Professionals writing business communication</li>
+  <li>Content writers and bloggers</li>
+</ul>
+
+<h2>Tips to Improve Your Grammar</h2>
+<ul>
+  <li>Read your sentences carefully</li>
+  <li>Use simple and clear language</li>
+  <li>Avoid long and complex sentences</li>
+  <li>Practice writing regularly</li>
+  <li>Use tools to verify your writing</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this grammar checker accurate?</strong><br>
+Yes, it provides accurate corrections and suggestions.</p>
+
+<p><strong>Can I use it for professional writing?</strong><br>
+Yes, it is suitable for emails, reports, and documents.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Does it correct spelling mistakes?</strong><br>
+Yes, it checks both grammar and spelling.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to improve your writing, get suggestions, and learn better communication skills.
+</p>
+
+</div>
+  <h2>🤖 AI Writing Assistant</h2>
+
+  <textarea id="inputText" placeholder="Enter your text..."></textarea>
+
+  <div class="buttons">
+    <button onclick="runAI('grammar')">Fix Grammar</button>
+    <button onclick="runAI('formal')">Formal Rewrite</button>
+    <button onclick="runAI('casual')">Casual Rewrite</button>
+    <button onclick="runAI('professional')">Professional</button>
+    <button onclick="runAI('paraphrase')">Paraphrase</button>
+  </div>
+
+  <div class="loader" id="loader">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="output-box" id="outputBox" style="display:none;">
+    <div class="label">Result:</div>
+    <div id="resultText" class="result"></div>
+    <button class="copy-btn" onclick="copyText()">Copy</button>
+  </div>
+</div>
+
+<script>
+async function runAI(type) {
+  const text = document.getElementById("inputText").value.trim();
+
+  if (!text) return alert("Enter text first!");
+
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("outputBox").style.display = "block";
+  document.getElementById("resultText").innerText = "";
+
+  try {
+    const response = await fetch("http://localhost:5000/ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text, type })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("resultText").innerText =
+      data.result || "No result";
+
+  } catch (err) {
+    document.getElementById("resultText").innerText =
+      "Error connecting to AI";
+  }
+
+  document.getElementById("loader").style.display = "none";
+}
+
+// COPY
+function copyText() {
+  const text = document.getElementById("resultText").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Copied!");
+}
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

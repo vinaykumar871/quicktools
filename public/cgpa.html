@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGPA Calculator - QuickTools</title>
+  <link rel="stylesheet" href="global.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="assets/logo.png" alt="logo">
+    <span>QuickTools</span>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="dashboard.html">Tools</a></li>
+  </ul>
+</nav>
+<div class="tool-content">
+
+<h1>CGPA Calculator – Calculate Your GPA & CGPA Easily</h1>
+
+<h2>Calculate Your CGPA Instantly</h2>
+
+<p>
+Use our CGPA Calculator to quickly calculate your Grade Point Average (GPA) and Cumulative Grade Point Average (CGPA). This tool helps students track academic performance and convert grades into accurate CGPA instantly.
+</p>
+
+<h2>What is CGPA?</h2>
+<p>
+CGPA (Cumulative Grade Point Average) is a measure of a student’s overall academic performance across all subjects. It is commonly used in schools and universities to evaluate student performance.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Enter your subject grades or grade points</li>
+  <li>Add credits for each subject (if applicable)</li>
+  <li>Click on "Calculate CGPA"</li>
+  <li>View your GPA and CGPA instantly</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Instant CGPA and GPA calculation</li>
+  <li>Supports multiple subjects and semesters</li>
+  <li>Easy-to-use interface</li>
+  <li>Accurate and reliable results</li>
+  <li>Works on mobile and desktop devices</li>
+</ul>
+
+<h2>Benefits of Using CGPA Calculator</h2>
+<ul>
+  <li>Saves time compared to manual calculations</li>
+  <li>Helps track academic progress</li>
+  <li>Reduces calculation errors</li>
+  <li>Useful for semester planning</li>
+  <li>Helps set academic goals</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>School and college students</li>
+  <li>Engineering and university students</li>
+  <li>Students tracking semester performance</li>
+  <li>Anyone needing quick GPA/CGPA calculation</li>
+</ul>
+
+<h2>How to Improve Your CGPA</h2>
+<ul>
+  <li>Focus on understanding concepts, not just memorizing</li>
+  <li>Practice regularly and revise topics</li>
+  <li>Manage time effectively during exams</li>
+  <li>Seek help when needed</li>
+  <li>Stay consistent in your studies</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>What is the difference between GPA and CGPA?</strong><br>
+GPA is calculated for a single semester, while CGPA is the overall average across multiple semesters.</p>
+
+<p><strong>Is this CGPA calculator accurate?</strong><br>
+Yes, it provides accurate results based on your inputs.</p>
+
+<p><strong>Can I calculate CGPA for multiple semesters?</strong><br>
+Yes, you can include multiple subjects and semesters.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to understand GPA calculations, grading systems, and academic planning.
+</p>
+
+</div>
+<!-- CGPA CALCULATOR -->
+<section class="tool-page">
+  <h1>CGPA Calculator</h1>
+
+  <div class="tool-card">
+
+    <label>Enter Grades (comma separated):</label>
+    <input type="text" id="grades" placeholder="e.g. 8,7,9,10">
+
+    <button onclick="calculateCGPA()">Calculate CGPA</button>
+
+    <p id="cgpaResult">Enter your grades and click Calculate.</p>
+
+  </div>
+</section>
+
+<script>
+function calculateCGPA() {
+  const input = document.getElementById("grades").value;
+
+  if (!input) {
+    document.getElementById("cgpaResult").innerText = "Please enter grades!";
+    return;
+  }
+
+  const grades = input.split(",").map(g => Number(g.trim()));
+
+  let sum = 0;
+
+  for (let i = 0; i < grades.length; i++) {
+    if (isNaN(grades[i])) {
+      document.getElementById("cgpaResult").innerText = "Invalid input!";
+      return;
+    }
+    sum += grades[i];
+  }
+
+  const cgpa = (sum / grades.length).toFixed(2);
+
+  document.getElementById("cgpaResult").innerText = "Your CGPA is: " + cgpa;
+}
+</script>
+
+<script src="utils.js"></script>
+<script>
+enableGlobalAutoSave();
+</script>
+
+</body>
+</html>

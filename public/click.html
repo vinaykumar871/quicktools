@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Speed Test - QuickTools</title>
+  
+  <link rel="stylesheet" href="global.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <link rel="stylesheet" href="style.css">  <style>
+    .click-container {
+      text-align: center;
+      padding: 60px 8%;
+    }
+
+    .click-box {
+      margin-top: 40px;
+      padding: 80px;
+      background: #2563EB;
+      color: white;
+      font-size: 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .stats {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    .best {
+      margin-top: 10px;
+      color: green;
+    }
+  </style></head><body><!-- NAVBAR --><nav class="navbar">
+  <div class="logo">
+    <img src="assets/logo.png">
+    <span>QuickTools</span>
+  </div>
+  
+</nav><section class="click-container">  <h1>🎯 Click Speed Test</h1>  <div id="clickBox" class="click-box">
+    Click to Start
+  </div>  <div class="stats" id="stats"></div>
+  <div class="best" id="bestScore"></div></section>
+  <div class="tool-content">
+
+<h1>Click Counter – Count Clicks Instantly Online</h1>
+
+<h2>Track Your Clicks Easily</h2>
+
+<p>
+Use our Click Counter tool to track and count your clicks instantly. Whether you are testing mouse clicks, tracking productivity, or measuring performance, this tool provides a simple and fast way to count clicks accurately.
+</p>
+
+<h2>What is a Click Counter?</h2>
+<p>
+A Click Counter is a tool that records the number of times you click a button. It is useful for testing mouse performance, tracking repetitive tasks, and measuring user interaction.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Click on the button provided on the screen</li>
+  <li>Each click increases the counter</li>
+  <li>View your total clicks instantly</li>
+  <li>Reset the counter anytime if needed</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Real-time click tracking</li>
+  <li>Instant count updates</li>
+  <li>Reset button for easy restart</li>
+  <li>Simple and user-friendly interface</li>
+  <li>Works on all devices</li>
+</ul>
+
+<h2>Benefits of Using Click Counter</h2>
+<ul>
+  <li>Helps track repetitive actions</li>
+  <li>Useful for testing mouse performance</li>
+  <li>Improves productivity tracking</li>
+  <li>Simple and fast to use</li>
+  <li>No installation required</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Students and professionals</li>
+  <li>Gamers testing click speed</li>
+  <li>Developers testing UI interactions</li>
+  <li>Anyone needing click tracking</li>
+</ul>
+
+<h2>Common Uses</h2>
+<ul>
+  <li>Mouse click testing</li>
+  <li>Tracking manual tasks</li>
+  <li>Gaming practice</li>
+  <li>Counting repetitive actions</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this click counter accurate?</strong><br>
+Yes, it counts each click instantly and accurately.</p>
+
+<p><strong>Can I reset the counter?</strong><br>
+Yes, you can reset the counter anytime.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Does it work on mobile?</strong><br>
+Yes, it works on both mobile and desktop devices.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant for any doubts or guidance related to tools and productivity.
+</p>
+
+</div>
+  <script>
+
+let clicks = 0;
+let timer = null;
+let timeLeft = 5;
+let started = false;
+let gameOver = false; // ✅ NEW FLAG
+
+// LOAD BEST SCORE
+let best = localStorage.getItem("bestCPS") || 0;
+if (best) {
+  document.getElementById("bestScore").innerText =
+    "🏆 Best CPS: " + best;
+}
+
+const box = document.getElementById("clickBox");
+
+box.onclick = function () {
+
+  // ❌ PREVENT IMMEDIATE RESTART
+  if (gameOver) return;
+
+  // START GAME
+  if (!started) {
+    started = true;
+    clicks = 0;
+    timeLeft = 5;
+
+    box.innerText = "Click fast!";
+    document.getElementById("stats").innerText = "⏳ Time: 5s";
+
+    timer = setInterval(() => {
+      timeLeft--;
+
+      document.getElementById("stats").innerText =
+        "⏳ Time: " + timeLeft + "s";
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+
+        const cps = (clicks / 5).toFixed(2);
+
+        document.getElementById("stats").innerText =
+          `🔥 Clicks: ${clicks} | ⚡ CPS: ${cps}`;
+
+        // SAVE BEST
+        if (cps > best) {
+          best = cps;
+          localStorage.setItem("bestCPS", best);
+          document.getElementById("bestScore").innerText =
+            "🏆 Best CPS: " + best;
+        }
+
+        box.innerText = "Click to Play Again";
+
+        started = false;
+        gameOver = true; // ✅ BLOCK CLICKS
+
+        // ✅ ALLOW CLICK AFTER DELAY
+        setTimeout(() => {
+          gameOver = false;
+        }, 800); // 0.8 sec buffer
+      }
+
+    }, 1000);
+
+  } else {
+    // COUNT CLICKS
+    clicks++;
+    box.innerText = clicks + " clicks";
+  }
+};
+
+</script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

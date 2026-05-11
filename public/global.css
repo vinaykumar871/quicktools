@@ -1,0 +1,77 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 🔥 Important fix */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  /* use margin NOT padding */
+  margin-bottom: 120px; /* must match footer height */
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* ✅ Fixed footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 2    0px;
+  height: auto;
+ /* 🔥 increase for safety */
+
+  background: #0f172a;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px; /* remove vertical padding */
+  box-sizing: border-box;
+
+  z-index: 1000;
+}
+footer {
+  background: #0f172a;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 30px;   /* 🔥 increase space */
+  font-size: 15px;      /* 🔥 slightly bigger text */
+}
+.tool-content {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.tool-content h1 {
+  font-size: 28px;
+}
+
+.tool-content h2 {
+  color: #4f46e5;
+  margin-top: 20px;
+}
+
+.tool-content p {
+  line-height: 1.6;
+}
+
+.tool-content ul {
+  padding-left: 20px;
+}

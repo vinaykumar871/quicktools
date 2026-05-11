@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Practice Java interview questions for placements. Learn OOPs, Data Structures, Collections, and coding problems for TCS, Infosys, Accenture.">
+
+<meta name="keywords" content="Java interview questions, Java practice, Java coding questions, OOPs Java, placement preparation Java, Java MCQs, Java quiz">
+
+<meta name="author" content="QuickTools">
+
+<meta property="og:title" content="Java Practice - QuickTools">
+<meta property="og:description" content="Practice Java interview questions for placements with quizzes and explanations.">
+<meta property="og:type" content="website">
+
+<title>Java Practice for Placements | Java Interview Questions | QuickTools</title>
+<link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<body>
+
+<div class="container">
+
+  <h1>💻 Java Practice</h1>
+
+  <p class="intro">
+    Practice Java interview questions including OOPs, Data Structures, Collections, and coding problems for placements.
+  </p>
+
+  <h2>What is Java for Placements?</h2>
+  <p>
+    Java is one of the most popular programming languages used in technical interviews by companies like TCS, Infosys, Wipro, and Accenture. 
+    It is widely used for building scalable applications, backend systems, and enterprise solutions.
+  </p>
+
+  <p>
+    In placement exams, Java questions focus on OOP concepts, data structures, problem-solving, and real-world coding scenarios. 
+    Practicing Java regularly helps improve coding logic and increases your chances of clearing technical rounds.
+  </p>
+
+  <h2>Topics Covered in Java Practice</h2>
+  <ul>
+    <li><strong>Java Basics:</strong> Variables, data types, operators</li>
+    <li><strong>OOP Concepts:</strong> Inheritance, Polymorphism, Encapsulation, Abstraction</li>
+    <li><strong>Collections Framework:</strong> ArrayList, HashMap, Set</li>
+    <li><strong>Multithreading:</strong> Threads, synchronization</li>
+    <li><strong>Coding Problems:</strong> Logic building and algorithms</li>
+  </ul>
+
+  <h2>Why Practice Java Questions?</h2>
+  <p>
+    Practicing Java interview questions helps you strengthen your problem-solving skills and improve coding speed. 
+    It also prepares you for real interview scenarios and builds confidence.
+  </p>
+
+  <h2>Top Companies Using Java</h2>
+  <p>
+    Companies like TCS, Infosys, Accenture, Capgemini, and Wipro frequently ask Java-based questions in interviews. 
+    Mastering Java can significantly improve your placement opportunities.
+  </p>
+
+  <h2>Java Interview Questions Practice</h2>
+  <p>
+    Click the button below to generate Java quiz questions and test your knowledge. 
+    These questions are designed based on real placement exams.
+  </p>
+
+  <button onclick="loadJavaQuiz()">Generate Questions</button>
+
+  <div id="quiz" style="margin-top: 20px;"></div>
+
+</div>
+<script>
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+
+async function loadJavaQuiz() {
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = "⏳ Loading questions...";
+
+  try {
+    const res = await fetch("http://localhost:5000/generate-quiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ topic: "java" })
+    });
+
+    const data = await res.json();
+
+    if (!data.questions || data.questions.length === 0) {
+      quizDiv.innerHTML = "⚠ No questions received";
+      return;
+    }
+
+    questions = data.questions;
+    currentIndex = 0;
+    score = 0;
+
+    showQuestion();
+
+  } catch (err) {
+    quizDiv.innerHTML = "❌ Server error";
+  }
+}
+
+function showQuestion() {
+  const q = questions[currentIndex];
+
+  let html = `
+    <div class="quiz-box">
+      <h3>Question ${currentIndex + 1} / ${questions.length}</h3>
+      <p class="question">${q.q}</p>
+
+      <div class="options">
+  `;
+
+  q.options.forEach(opt => {
+    html += `
+      <label class="option">
+        <input type="radio" name="answer" value="${opt}">
+        <span>${opt}</span>
+      </label>
+    `;
+  });
+
+  html += `
+      </div>
+
+      <button onclick="nextQuestion()">Next →</button>
+      <p class="score">Score: ${score}</p>
+    </div>
+  `;
+
+  document.getElementById("quiz").innerHTML = html;
+}
+
+function nextQuestion() {
+  const selected = document.querySelector('input[name="answer"]:checked');
+
+  if (!selected) {
+    alert("Please select an answer");
+    return;
+  }
+
+  if (selected.value === questions[currentIndex].answer) {
+    score++;
+  }
+
+  currentIndex++;
+
+  if (currentIndex < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById("quiz").innerHTML = `
+    <div class="quiz-box">
+      <h2>🎯 Your Score</h2>
+      <h1>${score} / ${questions.length}</h1>
+      <button onclick="loadJavaQuiz()">🔄 Retry</button>
+    </div>
+  `;
+}
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

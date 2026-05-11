@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reaction Test - QuickTools</title>
+  <link rel="stylesheet" href="global.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <link rel="stylesheet" href="style.css">  <style>
+    .reaction-box {
+      margin-top: 40px;
+      padding: 100px;
+      background: red;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .reaction-container {
+      text-align: center;
+      padding: 60px 8%;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .best {
+      margin-top: 10px;
+      color: green;
+    }
+  </style></head><body><!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <div class="tool-content">
+
+<h1>Reaction Time Test – Measure Your Response Speed Instantly</h1>
+
+<h2>Test Your Reaction Speed Easily</h2>
+
+<p>
+Use our Reaction Time Test tool to measure how quickly you respond to visual signals. This tool helps you improve focus, reflexes, and response speed, making it useful for gamers, students, and professionals.
+</p>
+
+<h2>What is a Reaction Time Test?</h2>
+<p>
+A Reaction Time Test measures how fast you respond to a stimulus, such as a color change or signal. It calculates the time between the stimulus and your response, usually in milliseconds.
+</p>
+
+<h2>How It Works</h2>
+<ul>
+  <li>Click the start button</li>
+  <li>Wait for the screen or signal to change</li>
+  <li>Click as quickly as possible when the change appears</li>
+  <li>Your reaction time is measured instantly</li>
+  <li>Repeat to improve your score</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+  <li>Accurate reaction time measurement</li>
+  <li>Instant results in milliseconds</li>
+  <li>Simple and engaging interface</li>
+  <li>Works on all devices</li>
+  <li>Unlimited attempts for practice</li>
+</ul>
+
+<h2>Benefits of Using Reaction Time Test</h2>
+<ul>
+  <li>Improves focus and concentration</li>
+  <li>Enhances reflexes</li>
+  <li>Useful for gaming performance</li>
+  <li>Helps train brain response speed</li>
+  <li>Fun and interactive practice tool</li>
+</ul>
+
+<h2>Who Should Use This Tool?</h2>
+<ul>
+  <li>Gamers improving reflex speed</li>
+  <li>Students enhancing concentration</li>
+  <li>Professionals testing response skills</li>
+  <li>Anyone interested in brain training</li>
+</ul>
+
+<h2>Tips to Improve Reaction Time</h2>
+<ul>
+  <li>Practice regularly</li>
+  <li>Stay focused and avoid distractions</li>
+  <li>Get enough rest and sleep</li>
+  <li>Play reaction-based games</li>
+  <li>Train your brain with quick decision-making tasks</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>What is a good reaction time?</strong><br>
+A normal reaction time is around 200–300 milliseconds.</p>
+
+<p><strong>Is this test accurate?</strong><br>
+Yes, it provides accurate measurements based on your response.</p>
+
+<p><strong>Is this tool free?</strong><br>
+Yes, it is completely free to use.</p>
+
+<p><strong>Can I improve my reaction time?</strong><br>
+Yes, regular practice can significantly improve your response speed.</p>
+
+<h2>Need Help?</h2>
+<p>
+Use our AI assistant to get tips, training methods, and improve your reaction speed.
+</p>
+
+</div>
+</nav><section class="reaction-container">
+  
+    <h1>⚡ Reaction Speed Test</h1>  <div id="box" class="reaction-box">
+    Click to Start
+  </div>  <div class="result" id="result"></div>
+  <div class="best" id="bestScore"></div></section><script>
+
+let startTime, timeout;
+let waiting = false;
+
+// LOAD BEST SCORE
+let best = localStorage.getItem("bestReaction") || null;
+if (best) {
+  document.getElementById("bestScore").innerText = "🏆 Best: " + best + " ms";
+}
+
+const box = document.getElementById("box");
+
+box.onclick = function () {
+
+  // TOO EARLY CLICK
+  if (waiting) {
+    clearTimeout(timeout);
+    box.style.background = "red";
+    box.innerText = "❌ Too Soon! Click to try again";
+    document.getElementById("result").innerText = "";
+    waiting = false;
+    return;
+  }
+
+  // START GAME
+  if (!startTime) {
+    box.innerText = "Wait for green...";
+    box.style.background = "orange";
+
+    const delay = Math.random() * 3000 + 2000;
+
+    waiting = true;
+
+    timeout = setTimeout(() => {
+      box.style.background = "green";
+      box.innerText = "CLICK NOW!";
+      startTime = new Date().getTime();
+      waiting = false;
+    }, delay);
+
+  } else {
+    // CLICK AFTER GREEN
+    const reactionTime = new Date().getTime() - startTime;
+
+    document.getElementById("result").innerText =
+      "⚡ Your Reaction: " + reactionTime + " ms";
+
+    // SAVE BEST SCORE
+    if (!best || reactionTime < best) {
+      best = reactionTime;
+      localStorage.setItem("bestReaction", best);
+      document.getElementById("bestScore").innerText =
+        "🏆 Best: " + best + " ms";
+    }
+
+    box.style.background = "red";
+    box.innerText = "Click to Play Again";
+
+    startTime = null;
+  }
+};
+
+</script>
+<script src="utils.js"></script>
+<script>
+autoSaveInput("goalInput", "goalData");
+</script>
+<script>
+enableGlobalAutoSave();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>

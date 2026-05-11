@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Blog Generator</title>
+
+<link rel="stylesheet" href="global.css">
+<!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo">
+      <span>QuickTools</span>
+    </div>
+    
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Tools</a></li>
+    </ul>
+  </nav>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<div class="tool-content">
+
+<h1>QuickTools Blog – Tips, Guides & Career Resources</h1>
+
+<h2>Explore Latest Career Tips & Learning Guides</h2>
+
+<p>
+Welcome to the QuickTools Blog, your go-to place for learning, career tips, interview preparation, and productivity tools. Discover expert guides, coding tutorials, resume tips, and placement strategies to boost your skills and career growth.
+</p>
+
+<h2>What You’ll Find in Our Blog</h2>
+<p>
+Our blog covers a wide range of topics designed to help students, job seekers, and professionals improve their knowledge and succeed in their careers.
+</p>
+
+<ul>
+  <li>Placement preparation tips</li>
+  <li>Resume building and ATS optimization guides</li>
+  <li>Coding and programming tutorials</li>
+  <li>Aptitude and interview preparation</li>
+  <li>Productivity and career growth tips</li>
+</ul>
+
+<h2>Why Follow Our Blog?</h2>
+<ul>
+  <li>Stay updated with latest job trends</li>
+  <li>Learn practical skills for real-world applications</li>
+  <li>Get expert advice for interviews and exams</li>
+  <li>Improve your technical and soft skills</li>
+  <li>Access free learning resources</li>
+</ul>
+
+<h2>Popular Topics</h2>
+<ul>
+  <li>How to crack technical interviews</li>
+  <li>Best resume tips for freshers</li>
+  <li>Top aptitude tricks and shortcuts</li>
+  <li>Java, Python, and coding guides</li>
+  <li>AI tools for students and developers</li>
+</ul>
+
+<h2>Who Should Read This Blog?</h2>
+<ul>
+  <li>Engineering students</li>
+  <li>Job seekers and freshers</li>
+  <li>Competitive exam aspirants</li>
+  <li>Developers and tech enthusiasts</li>
+</ul>
+
+<h2>Latest Articles</h2>
+<p>
+Browse our latest blog posts and stay updated with new content regularly added to help you learn and grow.
+</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Is this blog free to access?</strong><br>
+Yes, all blog content is completely free.</p>
+
+<p><strong>How often is content updated?</strong><br>
+We regularly publish new articles and update existing content.</p>
+
+<p><strong>Can beginners follow this blog?</strong><br>
+Yes, our content is designed for both beginners and advanced learners.</p>
+
+<h2>Need Help or Have Questions?</h2>
+<p>
+Use our AI assistant to get instant answers, guidance, and learning support anytime.
+</p>
+<div class="blog-card">
+  <h3>How to Crack Placement Interviews in 30 Days</h3>
+  <p>Learn step-by-step strategy to prepare for placements...</p>
+  
+  <a href="blog-view.html">Read More →</a>
+</div>
+
+</div>
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef2ff;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f9fafb;
+  border-left: 4px solid #4f46e5;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.footer {
+  background: #111827;
+  color: #ccc;
+  text-align: center;
+  padding: 12px;
+}
+
+
+.blog-content h1 { font-size: 26px; margin-bottom: 10 px; }
+.blog-content h2 { font-size: 22px; margin-top: 15px; }
+.blog-content p { margin: 10px 0; }
+.blog-content ul { margin-left: 20px; }
+</style>
+</head>
+
+<body>
+  
+
+<h1 style="text-align:center;">📝 AI Blog Generator</h1>
+
+<div class="container">
+
+<div class="section">
+<h2>🤖 Generate Blog</h2>
+
+<input id="topicInput" placeholder="Enter topic..." />
+
+<button onclick="generateBlog()">Generate</button>
+
+<div id="blogOutput"></div>
+
+<div id="actions" style="display:none;">
+  <button onclick="saveBlog()">💾 Save</button>
+  <button onclick="downloadBlog()">⬇ Download</button>
+  <button onclick="copyBlog()">📋 Copy</button>
+</div>
+</div>
+
+<div class="section">
+<h2>📚 Saved Blogs</h2>
+<div id="savedBlogs"></div>
+</div>
+
+<div class="section">
+<h2>📚 All Blogs</h2>
+<div id="blogList"></div>
+</div>
+
+</div>
+
+<script>
+let currentBlog = "";
+
+// 🔥 GENERATE BLOG
+function generateBlog() {
+  const topic = document.getElementById("topicInput").value;
+
+  if (!topic) return alert("Enter topic");
+
+  fetch("http://localhost:5000/generate-blog", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ topic })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    let blog = data.blog || "No content";
+
+    // ✅ CLEAN FORMAT
+    blog = blog
+      .replace(/```html/g, "")
+      .replace(/```/g, "")
+      .replace(/\*\*/g, "")
+      .replace(/###/g, "")
+      .replace(/##/g, "")
+      .replace(/#/g, "")
+      .replace(/\*/g, "")
+      .replace(/\n\n/g, "</p><p>")
+      .replace(/\n/g, "<br>");
+
+    blog = `<div class="blog-content"><p>${blog}</p></div>`;
+
+    currentBlog = blog;
+
+    document.getElementById("blogOutput").innerHTML = blog;
+
+    // ✅ SHOW BUTTONS
+    document.getElementById("actions").style.display = "block";
+  })
+  .catch(() => alert("Server error"));
+}
+
+
+// 💾 SAVE BLOG
+function saveBlog() {
+  if (!currentBlog) return alert("Generate blog first");
+
+  let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+  const newBlog = {
+    id: Date.now(),
+    title: document.getElementById("topicInput").value,
+    content: currentBlog
+  };
+
+  blogs.unshift(newBlog);
+
+  localStorage.setItem("blogs", JSON.stringify(blogs));
+
+  alert("Saved!");
+
+  loadBlogs();
+}
+
+
+// 📥 DOWNLOAD
+function downloadBlog() {
+  if (!currentBlog) return alert("Generate blog first");
+
+  const blob = new Blob([currentBlog], { type: "text/html" });
+  const a = document.createElement("a");
+
+  a.href = URL.createObjectURL(blob);
+  a.download = "blog.html";
+  a.click();
+}
+
+
+// 📋 COPY
+function copyBlog() {
+  if (!currentBlog) return alert("Generate blog first");
+
+  const temp = document.createElement("div");
+  temp.innerHTML = currentBlog;
+
+  navigator.clipboard.writeText(temp.innerText);
+
+  alert("Copied!");
+}
+
+
+// 📚 LOAD BLOGS
+function loadBlogs() {
+  const saved = document.getElementById("savedBlogs");
+  const all = document.getElementById("blogList");
+
+  let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+  saved.innerHTML = "";
+  all.innerHTML = "";
+
+  if (blogs.length === 0) {
+    saved.innerHTML = "<p>No saved blogs</p>";
+    all.innerHTML = "<p>No blogs available</p>";
+    return;
+  }
+
+  blogs.forEach(blog => {
+    const card = `
+      <div class="section">
+        <h3>${blog.title}</h3>
+        <button onclick="viewBlog(${blog.id})">Read</button>
+      </div>
+    `;
+
+    saved.innerHTML += card;
+    all.innerHTML += card;
+  });
+}
+
+
+// 👀 VIEW BLOG
+function viewBlog(id) {
+  const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+  const blog = blogs.find(b => b.id === id);
+
+  if (!blog) return alert("Not found");
+
+  document.getElementById("blogOutput").innerHTML = blog.content;
+
+  document.getElementById("actions").style.display = "block";
+}
+
+
+// 🔥 AUTO LOAD
+loadBlogs();
+</script>
+<div id="footer"></div>
+
+<script>
+fetch("footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+</script>
+</body>
+</html>
