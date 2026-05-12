@@ -93,7 +93,7 @@ async function loadJavaQuiz() {
   quizDiv.innerHTML = "⏳ Loading questions...";
 
   try {
-    const res = await fetch("https://quicktools-backend-1.onrender.com/generate-quiz", {
+    const res = await fetch("quicktools-kdyw.onrender.com/generate-quiz", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

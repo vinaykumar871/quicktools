@@ -140,7 +140,7 @@ async function loadQuiz() {
   document.getElementById("quiz").innerHTML = "⏳ Loading...";
 
   try {
-    const res = await fetch("https://quicktools-backend-1.onrender.com/generate-quiz", {
+    const res = await fetch("quicktools-kdyw.onrender.com/generate-quiz", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ topic: "python" })
