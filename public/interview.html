@@ -186,7 +186,7 @@ async function startQuiz(){
   const topic = document.getElementById("topic").value;
 
   try {
-    const res = await fetch("quicktools-kdyw.onrender.com/generate-quiz", {
+    const res = await fetch("https://quicktools-kdyw.onrender.com/generate-quiz", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ topic, level })
