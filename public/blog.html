@@ -198,7 +198,7 @@ function generateBlog() {
 
   if (!topic) return alert("Enter topic");
 
-  fetch("http://localhost:5000/generate-blog", {
+  fetch("https://quicktools-backend-1.onrender.com/generate-blog", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ topic })
