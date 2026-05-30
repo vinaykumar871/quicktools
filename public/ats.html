@@ -29,7 +29,71 @@
     <span>QuickTools</span>
   </div>
 </nav>
+<section class="tool-page">
+  
+  <h1>ATS Resume Score Checker</h1>
 
+  <div class="tool-card">
+
+    <!-- FILE -->
+    <input type="file" id="resumeFile" accept=".pdf" />
+
+    <!-- JOB DESC -->
+    <textarea id="jobDesc" placeholder="Paste Job Description"></textarea>
+
+    <!-- BUTTON -->
+    <button onclick="checkATS()">Check ATS Score</button>
+
+    <div id="resultBox" style="display:none; margin-top:20px;">
+
+  <h2 style="text-align:center;">📊 ATS Score</h2>
+
+  <h1 id="scoreText" style="text-align:center;"></h1>
+
+  <div style="background:#eee; border-radius:20px;">
+    <div id="scoreBar" style="height:18px; width:0%; border-radius:20px;"></div>
+  </div>
+
+  <h3 id="statusText" style="text-align:center;"></h3>
+
+  <hr>
+
+  <h3>❌ Missing Keywords</h3>
+  <p id="missing"></p>
+
+  <h3>💡 Improvements</h3>
+  <p id="improve"></p>
+
+</div>
+
+    <!-- ERROR -->
+    <p id="errorMsg" style="color:red;"></p>
+
+    <!-- LOADER -->
+    <div id="loader" style="display:none; text-align:center; margin-top:10px;">
+      ⏳ Checking ATS...
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div style="background:#ddd; height:10px; border-radius:5px; margin-top:10px;">
+      <div id="progressBar"
+           style="height:10px; width:0%; background:#16a34a; border-radius:5px;">
+      </div>
+    </div>
+
+    <!-- SCORE -->
+    <div id="score" style="margin-top:15px;"></div>
+
+    <!-- ✅ ADD THIS (IMPORTANT FIX) -->
+    <h3 style="margin-top:20px;">AI Suggestions</h3>
+    <div id="aiSuggestions" style="margin-top:10px;"></div>
+
+    <!-- FALLBACK -->
+    <p id="suggestions"></p>
+    <button onclick="downloadReport()">⬇ Download Report</button>
+
+  </div>
+</section>
 <div class="tool-content">
 
 <h1>ATS Resume Score Checker – Improve Your Resume for Job Applications</h1>
@@ -109,71 +173,7 @@ Use our AI assistant to improve your resume, optimize keywords, and get instant 
 </p>
 
 </div>
-<section class="tool-page">
-  
-  <h1>ATS Resume Score Checker</h1>
 
-  <div class="tool-card">
-
-    <!-- FILE -->
-    <input type="file" id="resumeFile" accept=".pdf" />
-
-    <!-- JOB DESC -->
-    <textarea id="jobDesc" placeholder="Paste Job Description"></textarea>
-
-    <!-- BUTTON -->
-    <button onclick="checkATS()">Check ATS Score</button>
-
-    <div id="resultBox" style="display:none; margin-top:20px;">
-
-  <h2 style="text-align:center;">📊 ATS Score</h2>
-
-  <h1 id="scoreText" style="text-align:center;"></h1>
-
-  <div style="background:#eee; border-radius:20px;">
-    <div id="scoreBar" style="height:18px; width:0%; border-radius:20px;"></div>
-  </div>
-
-  <h3 id="statusText" style="text-align:center;"></h3>
-
-  <hr>
-
-  <h3>❌ Missing Keywords</h3>
-  <p id="missing"></p>
-
-  <h3>💡 Improvements</h3>
-  <p id="improve"></p>
-
-</div>
-
-    <!-- ERROR -->
-    <p id="errorMsg" style="color:red;"></p>
-
-    <!-- LOADER -->
-    <div id="loader" style="display:none; text-align:center; margin-top:10px;">
-      ⏳ Checking ATS...
-    </div>
-
-    <!-- PROGRESS BAR -->
-    <div style="background:#ddd; height:10px; border-radius:5px; margin-top:10px;">
-      <div id="progressBar"
-           style="height:10px; width:0%; background:#16a34a; border-radius:5px;">
-      </div>
-    </div>
-
-    <!-- SCORE -->
-    <div id="score" style="margin-top:15px;"></div>
-
-    <!-- ✅ ADD THIS (IMPORTANT FIX) -->
-    <h3 style="margin-top:20px;">AI Suggestions</h3>
-    <div id="aiSuggestions" style="margin-top:10px;"></div>
-
-    <!-- FALLBACK -->
-    <p id="suggestions"></p>
-    <button onclick="downloadReport()">⬇ Download Report</button>
-
-  </div>
-</section>
 
 <script src="ats.js"></script>
 
