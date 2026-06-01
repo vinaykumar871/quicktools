@@ -36,7 +36,7 @@
   <button onclick="googleLogin()" style="background:#db4437; margin-top:10px;">
   Login with Google
 </button>
-<button onclick="window.location.href='index.html'">
+<button onclick="continueAsGuest()">
     Continue as Guest
 </button>
   <p id="msg"></p>
@@ -104,10 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => {
         document.getElementById("msg").innerText = error.message;
         console.error(error);
+        
       });
   };
 
 });
+
+function continueAsGuest() {
+    localStorage.setItem("guest", "true");
+    window.location.href = "dashboard.html";
+}
+</script>
+
 </script>
 
 </script>
