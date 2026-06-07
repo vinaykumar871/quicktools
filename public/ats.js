@@ -61,7 +61,7 @@ async function getAIScore(text, jobDesc) {
 
     console.log("getAIScore called");
 
-    const res = await fetch("http://127.0.0.1:5000/ats-check", {
+    const res = await fetch("https://quicktools-kdyw.onrender.com/ats-check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
