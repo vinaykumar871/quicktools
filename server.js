@@ -237,32 +237,7 @@ app.post("/ask-ai", async (req, res) => {
     }
   });
 
-  // =========================
-  // 🤖 AI CHAT API
-  // =========================
-  app.post("/ai-ultra", async (req, res) => {
-    try {
-      const { prompt } = req.body;
-
-      if (!prompt) {
-        return res.json({ reply: "Please enter a message" });
-      }
-
-      const completion = await groq.chat.completions.create({
-        messages: [{ role: "user", content: prompt }],
-        model: "llama-3.1-8b-instant",
-      });
-
-      res.json({
-        reply: completion.choices[0].message.content
-      });
-
-    } catch (err) {
-      console.log(err);
-      res.json({ reply: "AI failed" });
-    }
-  });
-
+  
   // =========================
   // 🤖 TEXT SUMMARIZER API
   // =========================
